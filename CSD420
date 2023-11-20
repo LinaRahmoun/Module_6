@@ -1,0 +1,54 @@
+# Module_6
+import java.util.Comparator;
+
+public class BubbleSort {
+
+    // Sorts elements using Comparable interface
+    public static <E extends Comparable<E>> void bubbleSort(E[] list) {
+        int n = list.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (list[j].compareTo(list[j + 1]) > 0) {
+                    E temp = list[j];
+                    list[j] = list[j + 1];
+                    list[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    // Sorts elements using Comparator interface
+    public static <E> void bubbleSort(E[] list, Comparator<? super E> comparator) {
+        int n = list.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (comparator.compare(list[j], list[j + 1]) > 0) {
+                    E temp = list[j];
+                    list[j] = list[j + 1];
+                    list[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    // Test code to ensure correctness
+    public static void main(String[] args) {
+        // Example with Comparable interface
+        Integer[] intArray = { 64, 34, 25, 12, 22, 11, 90 };
+        System.out.println("Before sorting:");
+        printArray(intArray);
+        bubbleSort(intArray);
+        System.out.println("After sorting using Comparable:");
+        printArray(intArray);
+
+        // Example with Comparator interface (sorting strings by length)
+        String[] stringArray = { "apple", "orange", "banana", "pineapple", "grapes" };
+        System.out.println("\nBefore sorting:");
+        printArray(stringArray);
+        bubbleSort(stringArray, Comparator.comparing(String::length));
+        System.out.println("After sorting using Comparator (by length):");
+        printArray(stringArray);
+    }
+
+    // Utility method to print arrays
+    private static <E>
